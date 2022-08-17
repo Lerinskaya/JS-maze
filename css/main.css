@@ -1,0 +1,23 @@
+.maze {
+    background-color: bisque;
+    padding: 5rem;
+}
+
+.title__maze {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    font-size: 2rem;
+    color: brown;
+}
+
+.canvas {
+    border: 3px solid rgb(53, 12, 12);
+}
+
+.field {
+    margin: 2rem auto;
+    display: flex;
+    justify-content: center;
+
+}
