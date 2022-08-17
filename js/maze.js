@@ -1,5 +1,8 @@
 const field = document.querySelector('.canvas').getContext('2d');
 
+let person = {};
+let finish = {};
+
 let mazeArray = [[0, 1, 0, 0, 1, 1, 1, 1, 1, 0],
 [0, 1, 0, 1, 0, 0, 0, 0, 0, 0],
 [0, 0, 0, 1, 0, 0, 1, 1, 0, 0],
@@ -10,9 +13,6 @@ let mazeArray = [[0, 1, 0, 0, 1, 1, 1, 1, 1, 0],
 [1, 0, 1, 1, 1, 0, 0, 0, 0, 0],
 [1, 0, 0, 0, 1, 1, 1, 0, 1, 1],
 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
-
-let person = {};
-let finish = {};
 
 let avatarPerson = document.createElement('img'),
     avatarFinish = document.createElement('img');
