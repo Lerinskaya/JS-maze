@@ -1,18 +1,42 @@
 const field = document.querySelector('.canvas').getContext('2d');
+let level = document.querySelector('.level');
+
+let num = 1;
+level.innerHTML = 'Level ' + num;
 
 let person = {};
 let finish = {};
 
-let mazeArray = [[0, 1, 0, 0, 1, 1, 1, 1, 1, 0],
-[0, 1, 0, 1, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 1, 0, 0, 1, 1, 0, 0],
-[1, 1, 0, 0, 0, 1, 0, 1, 0, 1],
-[0, 0, 0, 1, 1, 0, 0, 1, 0, 1],
-[0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-[1, 0, 1, 1, 1, 0, 0, 0, 0, 0],
-[1, 0, 1, 1, 1, 0, 0, 0, 0, 0],
-[1, 0, 0, 0, 1, 1, 1, 0, 1, 1],
-[1, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
+let mazeArray = [[2, 1, 0, 0, 1, 1, 1, 1, 1, 0],
+[2, 1, 0, 1, 0, 2, 2, 2, 2, 0],
+[2, 2, 2, 1, 0, 2, 1, 1, 2, 0],
+[1, 1, 2, 2, 2, 2, 0, 1, 2, 1],
+[2, 0, 0, 1, 1, 0, 0, 1, 2, 1],
+[0, 0, 0, 0, 0, 0, 0, 1, 2, 1],
+[1, 2, 1, 1, 1, 0, 2, 2, 2, 0],
+[1, 0, 1, 0, 1, 0, 0, 2, 0, 0],
+[1, 2, 0, 0, 1, 1, 1, 2, 1, 1],
+[1, 0, 2, 0, 0, 0, 0, 2, 2, 2]];
+
+function mixMaze() {
+    level.innerHTML = 'Level ' + ++num;
+    // let arr = Math.floor(Math.random() * mazeArray);
+    // rand = Math.floor(Math.random() * mazeArray[arr]);
+    // if (mazeArray[arr][rand] === 0) {
+    //     mazeArray[arr][rand] = 0;
+    // }
+    // console.log(rand);
+    for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < 10; j++) {
+            if (mazeArray[i][j] === 0) {
+                mazeArray[i][j] = 1;
+                break;
+            } 
+        }
+    }
+}
+
+
 
 let avatarPerson = document.createElement('img'),
     avatarFinish = document.createElement('img');
@@ -43,12 +67,12 @@ function drawField() {
     field.fillStyle = 'PeachPuff';
     field.fillRect(0, 0, field.canvas.width, field.canvas.height);
     for (let i = 0; i < mazeArray.length; i++) {
-        for (let a = 0; a < mazeArray[0].length; a++) {
-            if (mazeArray[i][a] !== 0) {
+        for (let j = 0; j < mazeArray[0].length; j++) {
+            if (mazeArray[i][j] === 1) {
                 field.fillStyle = 'SaddleBrown';
-                field.fillRect(a * blockWidth, i * blockHeight, blockWidth, blockHeight);
+                field.fillRect(j * blockWidth, i * blockHeight, blockWidth, blockHeight);
                 field.fillStyle = 'Peru';
-                field.fillRect(a * blockWidth + blockWidth / 4, i * blockHeight + blockHeight / 4, blockWidth / 2, blockHeight / 2);
+                field.fillRect(j * blockWidth + blockWidth / 4, i * blockHeight + blockHeight / 4, blockWidth / 2, blockHeight / 2);
             }
         }
     }
@@ -67,29 +91,29 @@ function setField() {
 
 function move() {
     switch (event.keyCode) {
-        case 65: person.x--;
+        case 37: person.x--;
             if (collision()) {
                 person.x++;
             }
             break;
-        case 87: person.y--;
+        case 38: person.y--;
             if (collision()) {
                 person.y++;
             }
             break;
-        case 68: person.x++;
+        case 39: person.x++;
             if (collision()) {
                 person.x--;
             }
             break;
-        case 83: person.y++;
+        case 40: person.y++;
             if (collision()) {
                 person.y--;
             }
             break;
     }
     function collision() {
-        if (mazeArray[person.y][person.x] === 1) {
+        if (mazeArray[person.y][person.x] === 1 || person.y < 0 || person.y > mazeArray.length - 1) {
             return true;
         } else {
             return false;
@@ -110,7 +134,7 @@ function clearPerson() {
     field.fillRect(person.x * blockWidth, person.y * blockHeight, blockWidth, blockHeight);
 }
 function fieldOut() {
-    if (person.x < 0 || person.x > mazeArray[0].length - 1 || person.y < 0 || person.y > mazeArray.length - 1) {
+    if (person.x < 0 || person.x > mazeArray[0].length - 1) {
         alert('Вы проиграли!');
         clearPerson();
         setField();
@@ -130,14 +154,51 @@ function winMaze() {
         drawFinish();
     }
 }
-function mixMaze() {
-    mazeArray[7][6] = 1;
-    mazeArray.map(i => [Math.random(), i]).sort().map(i => i[1]);
-    console.log(mazeArray);
-    console.log(mazeArray[7][6]);
-}
+// function mixMaze() {
+//             let arr = Math.floor(Math.random() * mazeArray);
+//             rand = Math.floor(Math.random() * mazeArray[arr]);
+//             if (mazeArray[arr][rand] === 0) {
+//                 mazeArray[arr][rand] = 1;
+//             }
+//         }
+    
+
+    // if (mazeArray[arr][rand] === 0) {
+    //     mazeArray[arr][rand] = 1;
+    // }
+    // drawField();
+    // drawPerson();
+    // drawFinish();
 
 
+
+
+// return mazeArray[rand];
+
+
+
+
+
+
+    // for (let i = 0; i < 4; i++) {
+    //     for (let j = 0; j < 4; j++) {
+    //         if (mazeArray[i][j] === 0) {
+    //             mazeArray[i][j] = 1;
+    //         }
+    //     }
+    // }
+
+
+ // mazeArray[7][6] = 1;
+    // for (let i = 0; i < 10; i++) {
+    //     if (mazeArray[person.y][person.x] === '0') {
+    //         mazeArray[person.y][person.x] = '1';
+    //     }
+    // }
+
+// mazeArray.map(i => [Math.random(), i]).sort().map(i => i[1]);
+//     // mazeArray = mazeArray.map();
+//     console.log(mazeArray);
 
 // (mazeArray[person.y] === 1 && mazeArray[person.x] === 1)
 // person.x < 0 || person.x > mazeArray[0].length - 1 || person.y < 0 || person.y > mazeArray.length - 1 ||
@@ -150,3 +211,28 @@ function mixMaze() {
 //             break;
 //         case 40: person.y++;
 //             break;
+
+// || person.y < 0 || person.y > mazeArray.length - 1
+
+
+// switch (event.keyCode) {
+//     case 65: person.x--;
+//         if (collision()) {
+//             person.x++;
+//         }
+//         break;
+//     case 87: person.y--;
+//         if (collision()) {
+//             person.y++;
+//         }
+//         break;
+//     case 68: person.x++;
+//         if (collision()) {
+//             person.x--;
+//         }
+//         break;
+//     case 83: person.y++;
+//         if (collision()) {
+//             person.y--;
+//         }
+//         break;
