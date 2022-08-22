@@ -110,7 +110,7 @@ function move() {
 }
 
 function collision() {
-    if (mazeArray[person.y][person.x] === 1) {
+    if (mazeArray[person.y] && mazeArray[person.y][person.x] === 1) {
         return true;
     } else {
         return false;
