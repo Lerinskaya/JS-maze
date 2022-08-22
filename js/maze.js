@@ -135,7 +135,6 @@ function fieldOut() {
         setField();
         drawPerson();
         drawFinish();
-        // collision();
     }
 }
 
