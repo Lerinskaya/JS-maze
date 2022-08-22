@@ -1,8 +1,8 @@
 const field = document.querySelector('.canvas').getContext('2d');
 let level = document.querySelector('.level');
 
-let num = 1;
-level.innerHTML = 'Level ' + num;
+let levelNumber = 1;
+level.innerHTML = 'Level ' + levelNumber;
 
 let person = {};
 let finish = {};
@@ -11,12 +11,12 @@ let mazeArray = [[2, 1, 0, 0, 1, 1, 1, 1, 1, 0],
 [2, 1, 0, 1, 0, 2, 2, 2, 2, 0],
 [2, 2, 2, 1, 0, 2, 1, 1, 2, 0],
 [1, 1, 2, 2, 2, 2, 0, 1, 2, 1],
-[2, 0, 0, 1, 1, 0, 0, 1, 2, 1],
+[0, 0, 0, 1, 1, 0, 0, 1, 2, 1],
 [0, 0, 0, 0, 0, 0, 0, 1, 2, 1],
-[1, 2, 1, 1, 1, 0, 2, 2, 2, 0],
+[1, 0, 1, 1, 1, 0, 2, 2, 2, 0],
 [1, 0, 1, 0, 1, 0, 0, 2, 0, 0],
-[1, 2, 0, 0, 1, 1, 1, 2, 1, 1],
-[1, 0, 2, 0, 0, 0, 0, 2, 2, 2]];
+[1, 0, 0, 0, 1, 1, 1, 2, 1, 1],
+[1, 0, 0, 0, 0, 0, 0, 2, 2, 2]];
 
 function mixMaze() {
     let randomI = Math.floor(Math.random() * mazeArray.length);
@@ -29,6 +29,8 @@ function mixMaze() {
             if (mazeArray[i][j] === 0) {
                 mazeArray[i][j] = 1;
                 break;
+            } else if (mazeArray[i][j] !== 0) {
+                i = Math.floor(Math.random() * mazeArray.length);
             }
         } break;
     }
@@ -108,7 +110,6 @@ function move() {
             }
             break;
     }
-    console.log(person.x, person.y);
 }
 
 function collision() {
