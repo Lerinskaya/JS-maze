@@ -20,23 +20,17 @@ let mazeArray = [[2, 1, 0, 0, 1, 1, 1, 1, 1, 0],
 
 function mixMaze() {
     level.innerHTML = 'Level ' + ++num;
-    // let arr = Math.floor(Math.random() * mazeArray);
-    // rand = Math.floor(Math.random() * mazeArray[arr]);
-    // if (mazeArray[arr][rand] === 0) {
-    //     mazeArray[arr][rand] = 0;
-    // }
-    // console.log(rand);
     for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++) {
             if (mazeArray[i][j] === 0) {
                 mazeArray[i][j] = 1;
                 break;
-            } 
-        }
+            } else if (mazeArray[i][9] === 1) {
+                i = i + 1;
+            }
+        } break;
     }
 }
-
-
 
 let avatarPerson = document.createElement('img'),
     avatarFinish = document.createElement('img');
@@ -112,14 +106,15 @@ function move() {
             }
             break;
     }
-    function collision() {
-        if (mazeArray[person.y][person.x] === 1 || person.y < 0 || person.y > mazeArray.length - 1) {
-            return true;
-        } else {
-            return false;
-        }
-    }
     console.log(person.x, person.y);
+}
+
+function collision() {
+    if (mazeArray[person.y][person.x] === 1) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function drawPerson() {
@@ -134,12 +129,13 @@ function clearPerson() {
     field.fillRect(person.x * blockWidth, person.y * blockHeight, blockWidth, blockHeight);
 }
 function fieldOut() {
-    if (person.x < 0 || person.x > mazeArray[0].length - 1) {
+    if (person.x < 0 || person.x > mazeArray[0].length - 1 || person.y < 0 || person.y > mazeArray.length - 1) {
         alert('Вы проиграли!');
         clearPerson();
         setField();
         drawPerson();
         drawFinish();
+        // collision();
     }
 }
 
@@ -154,85 +150,3 @@ function winMaze() {
         drawFinish();
     }
 }
-// function mixMaze() {
-//             let arr = Math.floor(Math.random() * mazeArray);
-//             rand = Math.floor(Math.random() * mazeArray[arr]);
-//             if (mazeArray[arr][rand] === 0) {
-//                 mazeArray[arr][rand] = 1;
-//             }
-//         }
-    
-
-    // if (mazeArray[arr][rand] === 0) {
-    //     mazeArray[arr][rand] = 1;
-    // }
-    // drawField();
-    // drawPerson();
-    // drawFinish();
-
-
-
-
-// return mazeArray[rand];
-
-
-
-
-
-
-    // for (let i = 0; i < 4; i++) {
-    //     for (let j = 0; j < 4; j++) {
-    //         if (mazeArray[i][j] === 0) {
-    //             mazeArray[i][j] = 1;
-    //         }
-    //     }
-    // }
-
-
- // mazeArray[7][6] = 1;
-    // for (let i = 0; i < 10; i++) {
-    //     if (mazeArray[person.y][person.x] === '0') {
-    //         mazeArray[person.y][person.x] = '1';
-    //     }
-    // }
-
-// mazeArray.map(i => [Math.random(), i]).sort().map(i => i[1]);
-//     // mazeArray = mazeArray.map();
-//     console.log(mazeArray);
-
-// (mazeArray[person.y] === 1 && mazeArray[person.x] === 1)
-// person.x < 0 || person.x > mazeArray[0].length - 1 || person.y < 0 || person.y > mazeArray.length - 1 ||
-
-// case 37: person.x--;
-//             break;
-//         case 38: person.y--;
-//             break;
-//         case 39: person.x++;
-//             break;
-//         case 40: person.y++;
-//             break;
-
-// || person.y < 0 || person.y > mazeArray.length - 1
-
-
-// switch (event.keyCode) {
-//     case 65: person.x--;
-//         if (collision()) {
-//             person.x++;
-//         }
-//         break;
-//     case 87: person.y--;
-//         if (collision()) {
-//             person.y++;
-//         }
-//         break;
-//     case 68: person.x++;
-//         if (collision()) {
-//             person.x--;
-//         }
-//         break;
-//     case 83: person.y++;
-//         if (collision()) {
-//             person.y--;
-//         }
-//         break;
