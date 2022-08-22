@@ -21,3 +21,12 @@
     justify-content: center;
 
 }
+
+.level {
+    display: flex;
+    justify-content: center;
+    margin: 2rem auto;
+    padding: 1rem 2rem;
+    border: 2px dotted brown;
+    max-width: 10rem;
+}
