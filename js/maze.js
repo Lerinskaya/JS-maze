@@ -19,14 +19,16 @@ let mazeArray = [[2, 1, 0, 0, 1, 1, 1, 1, 1, 0],
 [1, 0, 2, 0, 0, 0, 0, 2, 2, 2]];
 
 function mixMaze() {
+    let randomI = Math.floor(Math.random() * mazeArray.length);
+    let randomJ = Math.floor(Math.random() * mazeArray[0].length);
+    let i = randomI;
+    let j = randomJ;
     level.innerHTML = 'Level ' + ++num;
-    for (let i = 0; i < 10; i++) {
-        for (let j = 0; j < 10; j++) {
+    for (i; i < 10; i++) {
+        for (j; j < 10; j++) {
             if (mazeArray[i][j] === 0) {
                 mazeArray[i][j] = 1;
                 break;
-            } else if (mazeArray[i][9] === 1) {
-                i = i + 1;
             }
         } break;
     }
